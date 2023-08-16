@@ -13,6 +13,10 @@ def parse_ad_details(link):
     except AttributeError:
         start_price=''
     description=ad_page.find('head').find('meta', attrs={"name": "description"}).get('content').replace('\r\n', '   ').replace('\n', '  ').replace('\r', '  ')
+    photos=ad_page.find('div', class_='announcement__images').find_all('img', class_='announcement__images-item')
+    photos_array = []
+    for photo in photos:
+        photos_array.append(photo.get('data-full'))
     base = ad_page.find('div', class_= 'announcement-characteristics clearfix')
     base_elements=base.find_all('li')
     specs = []
@@ -58,5 +62,9 @@ def parse_ad_details(link):
             details_fuel=second_element
         if first_element == 'Engine size:':
             details_engine_size=second_element
-    specs = [car, price, start_price, post_date, details_year, details_doors, details_drive, details_power, details_seats, details_colour, details_gearbox, details_mileage, details_mot, details_body_type, details_fuel, details_engine_size, details_extras, description]
+    specs = [car, price, start_price, post_date, details_year, details_doors, details_drive, details_power, details_seats, details_colour, details_gearbox, details_mileage, details_mot, details_body_type, details_fuel, details_engine_size, details_extras, description, str(', '.join(photos_array))]
     return(specs)
+
+
+link='https://www.bazaraki.com/adv/4740481_volkswagen-tiguan-2-0l-2015/'
+parse_ad_details(link)

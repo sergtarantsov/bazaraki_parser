@@ -1,1 +1,1 @@
-action; datetime; link; car; price; price_details; posted; year; doors; drive; power; seats; color; gearbox; mileage; MOT; body; fuel; engine; extras; description 
+action; datetime; link; car; price; price_details; posted; year; doors; drive; power; seats; color; gearbox; mileage; MOT; body; fuel; engine; extras; description, photo_links
