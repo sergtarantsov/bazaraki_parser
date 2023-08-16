@@ -14,10 +14,10 @@ def changes_check(url, imprint_file):
     expired_ads_array = [x for x in imprint_array if x not in link_array]
     if len(added_ads_array)>0:
         for link_element in added_ads_array:
-            log_record_add(link_element, 'log_file.csv')
+            log_record_add(link_element, 'data/log_file.csv')
             time.sleep(5)  
     if len(expired_ads_array)>0:
         for link_element in expired_ads_array:
-            log_record_expire(link_element, 'log_file.csv')
+            log_record_expire(link_element, 'data/log_file.csv')
             time.sleep(10)  
     create_imprint('imprint.csv', link_array)
