@@ -12,7 +12,7 @@ def parse_ad_details(link):
         start_price=ad_page.find('div', class_='announcement-price__discount').find('span').text.replace('\n', '').replace(' ', '')
     except AttributeError:
         start_price=''
-    description=ad_page.find('head').find('meta', attrs={"name": "description"}).get('content').replace('\r\n', '   ').replace('\n', 'n')
+    description=ad_page.find('head').find('meta', attrs={"name": "description"}).get('content').replace('\r\n', '   ').replace('\n', '  ').replace('\r', '  ')
     base = ad_page.find('div', class_= 'announcement-characteristics clearfix')
     base_elements=base.find_all('li')
     specs = []

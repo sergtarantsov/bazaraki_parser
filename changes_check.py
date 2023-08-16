@@ -19,5 +19,5 @@ def changes_check(url, imprint_file):
     if len(expired_ads_array)>0:
         for link_element in expired_ads_array:
             log_record_expire(link_element, 'log_file.csv')
-            time.sleep(5)  
+            time.sleep(10)  
     create_imprint('imprint.csv', link_array)
