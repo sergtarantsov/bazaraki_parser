@@ -6,19 +6,31 @@ def parse_ad_details(link):
         car=ad_page.find('h1', class_='title-announcement').text.replace('\n', '').replace('  ', '')
     except AttributeError:
         car=''
-    post_date=ad_page.find('div', class_='announcement__details').find('span', class_='date-meta').text
-    price=ad_page.find('div', class_='announcement-price__cost').text.split('\n')[3].replace(' ', '')
+    try:
+        post_date=ad_page.find('div', class_='announcement__details').find('span', class_='date-meta').text
+    except AttributeError:
+        post_date=''
+    try:
+        price=ad_page.find('div', class_='announcement-price__cost').text.split('\n')[3].replace(' ', '')
+    except AttributeError:
+        price=''
     try:
         start_price=ad_page.find('div', class_='announcement-price__discount').find('span').text.replace('\n', '').replace(' ', '')
     except AttributeError:
         start_price=''
     description=ad_page.find('head').find('meta', attrs={"name": "description"}).get('content').replace('\r\n', '   ').replace('\n', '  ').replace('\r', '  ')
-    photos=ad_page.find('div', class_='announcement__images').find_all('img', class_='announcement__images-item')
+    try:
+        photos=ad_page.find('div', class_='announcement__images').find_all('img', class_='announcement__images-item')
+    except AttributeError:
+        photos=[]   
     photos_array = []
     for photo in photos:
         photos_array.append(photo.get('data-full'))
     base = ad_page.find('div', class_= 'announcement-characteristics clearfix')
-    base_elements=base.find_all('li')
+    try:
+        base_elements=base.find_all('li')
+    except AttributeError:
+        base_elements=[]
     specs = []
     details_year=''
     details_doors=''
@@ -64,7 +76,3 @@ def parse_ad_details(link):
             details_engine_size=second_element
     specs = [car, price, start_price, post_date, details_year, details_doors, details_drive, details_power, details_seats, details_colour, details_gearbox, details_mileage, details_mot, details_body_type, details_fuel, details_engine_size, details_extras, description, str(', '.join(photos_array))]
     return(specs)
-
-
-link='https://www.bazaraki.com/adv/4740481_volkswagen-tiguan-2-0l-2015/'
-parse_ad_details(link)
