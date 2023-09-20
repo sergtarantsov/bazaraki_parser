@@ -3,16 +3,18 @@ from log_record_add import log_record_add
 from log_record_expire import log_record_expire
 from create_imprint import create_imprint
 import time
-import os
 
-def changes_check(url, imprint_file):
-    base_directory = os.environ.get("PARSER_DIR")
-    log_path = os.path.join(base_directory, 'data/log_file.csv')
-    imprint_path = os.path.join(base_directory, 'data/imprint.csv')
+def changes_check(url, log_path, imprint_path):
     link_array = make_full_link_array(url)
-    with open(imprint_file, 'r') as file:
-        imprint_text=file.read()
-    file.close()
+    try:
+        with open(imprint_path, 'r') as file:
+            imprint_text=file.read()
+        file.close()
+    except FileNotFoundError:
+        file=open(imprint_path, 'w')
+        with open(imprint_path, 'r') as file:
+            imprint_text=file.read()
+        file.close()
     imprint_array=imprint_text.splitlines()
     added_ads_array = [x for x in link_array if x not in imprint_array]
     expired_ads_array = [x for x in imprint_array if x not in link_array]
