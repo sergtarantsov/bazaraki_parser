@@ -1,5 +1,8 @@
 from changes_check import changes_check
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 #нужно прописать путь к данной папке в env, на MacOS и Linux это делает с помощью команды в терминале. Это позволяет выполнять код в кроне MacOS
 #export PARSER_DIR="полный путь к папке"
