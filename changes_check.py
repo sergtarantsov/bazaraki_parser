@@ -9,12 +9,9 @@ def changes_check(url, log_path, imprint_path):
     try:
         with open(imprint_path, 'r') as file:
             imprint_text=file.read()
-        file.close()
     except FileNotFoundError:
         file=open(imprint_path, 'w')
-        with open(imprint_path, 'r') as file:
-            imprint_text=file.read()
-        file.close()
+        imprint_text=''
     imprint_array=imprint_text.splitlines()
     added_ads_array = [x for x in link_array if x not in imprint_array]
     expired_ads_array = [x for x in imprint_array if x not in link_array]
